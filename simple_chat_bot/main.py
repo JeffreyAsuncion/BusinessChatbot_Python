@@ -114,17 +114,21 @@ def chat():
         inp = input("You: ")
         if inp.lower() == "quit":
             break
-        results = model.predict([bag_of_words(inp, words)])#####[0]  # [0] was added
+        results = model.predict([bag_of_words(inp, words)])[0]  # [0] was added
         #print(results) # this is the result of the prediction in probability
-
-
         results_index = np.argmax(results)
         tag = labels[results_index]
         #print(tag) # this is the tag that most likely represents the user input
-        for tg in data["intents"]:
-            if tg['tag'] == tag:
-                responses = tg['responses']
-        print(random.choice(responses))
+        
+        if results[results_index] > 0.7:
+            for tg in data["intents"]:
+                if tg['tag'] == tag:
+                    responses = tg['responses']
+            print(random.choice(responses))
+        else:
+            print("I did't get that, try again.")
+
+
 
 print("\n\n")
 
