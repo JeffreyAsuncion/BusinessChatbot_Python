@@ -1,9 +1,11 @@
 import nltk
+nltk.download('punkt')
 from nltk.stem.lancaster import LancasterStemmer
 
 import numpy as np
 import tflearn
-import tensorflow
+import tensorflow as tf
+from tensorflow.python.framework import ops
 import random
 import json
 
@@ -26,13 +28,13 @@ for intent in data["intents"]:
         # tokenize our patterns
         wrds = nltk.word_tokenize(pattern)
         words.extend(wrds)
-        docs_x.append(pattern)
+        docs_x.append(wrds)
         docs_y.append(intent["tag"])
 
     if intent["tag"] not in labels:
         labels.append(intent["tag"])
 
-words = [stemmer.stem(w.lower()) for w in words]
+words = [stemmer.stem(w.lower()) for w in words if w not in "?!@#$%^&.,/"]
 words = sorted(list(set(words)))
 
 labels = sorted(labels)
@@ -41,7 +43,7 @@ training = []
 output = []
 
 # zero all the one-hot encoding 
-out_empty = [0 for _ in range(len(classes))]
+out_empty = [0 for _ in range(len(labels))]
 
 # bag of words
 
@@ -64,3 +66,19 @@ for x, doc in enumerate(docs_x):
 
 training = np.array(training)
 output = np.array(output)
+
+# Neural Network
+##tf.reset_default_graph()
+ops.reset_default_graph() # https://github.com/keras-team/keras/issues/12783
+
+net = tflearn.input_data(shape=[None, len(training[0])])
+net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, len(output[0]),activation="softmax")
+net = tflearn.regression(net)
+
+model = tflearn.DNN(net)
+
+model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
+model.save("model.tflearn")
