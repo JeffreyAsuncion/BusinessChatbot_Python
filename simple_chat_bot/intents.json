@@ -16,12 +16,17 @@
         },
         {"tag": "shop",
          "patterns": ["Id like to buy something", "whats on the menu", "what do you recommend?", "could i get something to eat"],
-         "responses": ["We sell chocolate chip cookies for $2!", "Cookies are on the menu!"],
+         "responses": ["We sell chocolate chip cookies for $2000!", "Cookies are on the menu!"],
          "context_set": ""
         },
         {"tag": "hours",
          "patterns": ["when are you guys open", "what are your hours", "hours of operation"],
          "responses": ["We are open 7am-4pm Monday-Friday!"],
+         "context_set": ""
+        },
+        {"tag": "force",
+         "patterns": ["What Jedi", "I am one with the Force and the Force is with me", "Skywalker"],
+         "responses": ["I sense a disturbance in the Force"],
          "context_set": ""
         }
         

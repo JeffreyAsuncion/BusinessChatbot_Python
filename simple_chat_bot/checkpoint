@@ -1,2 +1,2 @@
-model_checkpoint_path: "/home/jepoy/Documents/Projects/github/BusinessChatbot_Python/simple_chat_bot/model.tflearn"
-all_model_checkpoint_paths: "/home/jepoy/Documents/Projects/github/BusinessChatbot_Python/simple_chat_bot/model.tflearn"
+model_checkpoint_path: "/home/mastajepoy/mystuff/BusinessChatbot_Python/simple_chat_bot/model.tflearn"
+all_model_checkpoint_paths: "/home/mastajepoy/mystuff/BusinessChatbot_Python/simple_chat_bot/model.tflearn"
