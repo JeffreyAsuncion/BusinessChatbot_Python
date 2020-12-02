@@ -126,7 +126,7 @@ def chat():
         tag = labels[results_index]
         #print(tag) # this is the tag that most likely represents the user input
         
-        if results[results_index] > 0.7:
+        if results[results_index] > 0.6: # this was 0.7
             for tg in data["intents"]:
                 if tg['tag'] == tag:
                     responses = tg['responses']
